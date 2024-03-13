@@ -1,0 +1,19 @@
+main {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+  max-width: 920px;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 400px;
+}
+.main-content > * {
+  border-radius: 1.7rem;
+}
+
+/*# sourceMappingURL=main-content.css.map */
