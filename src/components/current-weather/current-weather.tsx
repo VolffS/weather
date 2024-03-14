@@ -1,11 +1,11 @@
 import './current-weather.scss'
 import locationSvg from '../../assets/location.svg'
-import {formattingTodayWeather} from "../../helpers/helpers.ts";
+import {formattingWeatherByDate, Metric} from "../../helpers/helpers.ts";
 import {WeatherData} from "../../type/weather-data.ts";
 import {TodayWeather} from "../../type/today-weather.ts";
 
-export const CurrentWeather = ({currentWeather}: { currentWeather: WeatherData }) => {
-    const weatherData: TodayWeather = formattingTodayWeather(currentWeather);
+export const CurrentWeather = ({weather, weatherDay, currentMetric}: { weather: WeatherData, weatherDay: number, currentMetric: Metric }) => {
+    const weatherData: TodayWeather = formattingWeatherByDate(weather, weatherDay, currentMetric);
 
     return (
         <div className="container">

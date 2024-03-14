@@ -9,6 +9,9 @@
   background-color: #1f252d;
 }
 .side-information::before {
+  -webkit-box-shadow: 18px 18px 28px 5px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 18px 18px 28px 5px rgba(0, 0, 0, 0.35);
+  box-shadow: 18px 18px 28px 5px rgba(0, 0, 0, 0.35);
   content: "";
   position: absolute;
   top: 0;

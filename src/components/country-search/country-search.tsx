@@ -9,11 +9,12 @@ let changeInput = () => {
 };
 export const CountrySearch = ({fillDataWeather, endCountrySearch}: {
     fillDataWeather: (location: Location) => void,
-    endCountrySearch: () => void
+    endCountrySearch: () => void,
+
 }) => {
 
     const [cities, setCities] = useState<Array<Location>>([]);
-    const inputRef: MutableRefObject<HTMLInputElement|undefined> = useRef();
+    const inputRef: MutableRefObject<HTMLInputElement | undefined> = useRef();
 
     function resultRequest() {
         let value = "";
@@ -39,8 +40,9 @@ export const CountrySearch = ({fillDataWeather, endCountrySearch}: {
     return (
         <div className="country-search-container">
             <div className="country-search">
-                <input className="country-search__text" ref={inputRef} onChange={()=> changeInput()} type="text"/>
-                {cities.length != 0 && <SearchResultList cities={cities} onDivClick={{fillDataWeather, endCountrySearch}}/>}
+                <input className="country-search__text" ref={inputRef} onChange={() => changeInput()} type="text"/>
+                {cities.length != 0 &&
+                    <SearchResultList cities={cities} onDivClick={{fillDataWeather, endCountrySearch}}/>}
             </div>
 
         </div>
