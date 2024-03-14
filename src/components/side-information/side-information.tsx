@@ -17,7 +17,7 @@ export const SideInformation = ({weather, onBtnClick, useWeatherDay, currentMetr
 
     return <div className="side-information">
         <TodayExtraWeather currentWeather={weather[useWeatherDay.weatherDay]} currentMetric={currentMetric}/>
-        <WeekInfo weatherInfo={weather} onDayClick={useWeatherDay}/>
+        <WeekInfo weatherInfo={weather} onDayClick={useWeatherDay} currentMetric={currentMetric}/>
         <button className="select-location" onClick={onBtnClick}>
             <img src={locationSvg} alt=""/>
             <p>Выбрать локацию</p>

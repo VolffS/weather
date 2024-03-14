@@ -20,7 +20,7 @@ export const MainContent = () => {
     const [isCountrySearch, setIsCountrySearch] = useState<boolean>(false);
     const [weatherDay, setWeatherDay] = useState<number>(0);
     const [weatherMetric, setWeatherMetric] = useState<Metric>(Metric.celsius);
-
+// первая загрузка цельсия
     function fillDataWeather(location: Location): void {
         setWeatherDay(0);
         requestWeatherFiveDays(location.lat, location.lon).then(
@@ -61,8 +61,9 @@ export const MainContent = () => {
         }
     }
     const mouseupCancelHandler = (ev: MouseEvent): void => {
+        console.log(ev.target)
         if (ev.target !== null) {
-            if (!ev.target.classList.value.includes("search")) {
+            if (!ev.target.classList.value.includes("search") && !ev.target.classList.value.includes("result")) {
                 setIsCountrySearch(false);
             }
         }
