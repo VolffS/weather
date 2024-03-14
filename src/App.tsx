@@ -4,9 +4,9 @@ import {MainContent} from "./components/main-content/main-content.tsx";
 export const App = () => {
 
     return (<>
-            <Header />
-            <MainContent />
-    </>
+            <Header/>
+            <MainContent/>
+        </>
     );
 }
 

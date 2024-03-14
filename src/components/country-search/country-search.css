@@ -1,0 +1,30 @@
+.country-search-container {
+  padding: 0.7rem;
+  border-radius: 0.7rem;
+  position: absolute;
+  z-index: 2;
+  width: 70%;
+  height: 3.5rem;
+  max-width: 600px;
+  background: linear-gradient(215deg, #576a7d, 60%, #535de4);
+}
+
+.country-search {
+  position: relative;
+}
+
+.country-search__text {
+  padding: 0.3rem;
+  color: black;
+  width: 100%;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  border: none;
+}
+.country-search__text:focus-visible {
+  border: none;
+  outline-width: 0.123rem;
+  outline-style: solid;
+}
+
+/*# sourceMappingURL=country-search.css.map */

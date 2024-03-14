@@ -1,17 +1,18 @@
 import './today-extra-weather.scss'
-export function TodayExtraWeather() {
+import {Weather} from "../../type/weather.ts";
+export const TodayExtraWeather = ({currentWeather}:{currentWeather: Weather}) => {
     return <div className="today-weather-container">
         <div className="today-info">
-            <p className="today__title">Осадки</p>
-            <p className="today__title-value">0 %</p>
+            <p className="today__title">Ощущается как</p>
+            <p className="today__title-value">{Math.floor(currentWeather.main.feels_like)}°C</p>
         </div>
         <div className="today-info">
             <p className="today__title">Влажность</p>
-            <p className="today__title-value">34 %</p>
+            <p className="today__title-value">{currentWeather.main.humidity} %</p>
         </div>
         <div className="today-info">
             <p className="today__title">Ветер</p>
-            <p className="today__title-value">0 km/h</p>
+            <p className="today__title-value">{currentWeather.wind.speed} км/ч</p>
         </div>
     </div>;
 }

@@ -1,30 +1,22 @@
 import './week-info.scss'
-import {weatherImg} from "../../assets/weather-img.ts";
+import {Weather} from "../../type/weather.ts";
+import {formattingWeeksWeatherData} from "../../helpers/helpers.ts";
+import {WeeksWeatherData} from "../../type/weeks-weather-data.ts";
 
-export const WeekInfo = () => {
+export const WeekInfo = ({weatherInfo}:{weatherInfo: Array<Weather>}) => {
+
+    const dataWeek: Array<WeeksWeatherData> = formattingWeeksWeatherData(weatherInfo);
+
     return (
         <div className="week-container">
             <ul className="next-days">
-                <li className="next-days__weather">
-                    <img src={weatherImg.sun} alt=""/>
-                    <p className="day-of-week">Пн</p>
-                    <p className="day-temp">1</p>
-                </li>
-                <li className="next-days__weather">
-                    <img src={weatherImg.cloud} alt=""/>
-                    <p className="day-of-week">Вт</p>
-                    <p className="day-temp">2</p>
-                </li>
-                <li className="next-days__weather">
-                    <img src={weatherImg.rain} alt=""/>
-                    <p className="day-of-week">Ср</p>
-                    <p className="day-temp">3</p>
-                </li>
-                <li className="next-days__weather">
-                    <img src={weatherImg.storm} alt=""/>
-                    <p className="day-of-week">Чт</p>
-                    <p className="day-temp">4</p>
-                </li>
+                {dataWeek.map((value) =>
+                    <li className="next-days__weather" key={value.id+value.dayOfWeek}>
+                        <img src={value.urlImg} alt=""/>
+                        <p className="day-of-week">{value.dayOfWeek}</p>
+                        <p className="day-temp">{value.day}</p>
+                    </li>
+                )}
             </ul>
         </div>
     );
