@@ -32,6 +32,17 @@
   }
 }
 
+.active {
+  background: white;
+  transform: scale(1.1);
+  img {
+    filter: invert(100%);
+  }
+  &> *{
+    color: black;
+  }
+}
+
 .day-of-week {
   padding: .2rem 0;
 }

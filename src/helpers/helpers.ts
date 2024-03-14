@@ -3,6 +3,10 @@ import {WeatherData} from "../type/weather-data.ts";
 import {Weather} from "../type/weather.ts";
 import {WeeksWeatherData} from "../type/weeks-weather-data.ts";
 
+export enum Metric {
+    fahrenheit = "°F",
+    celsius = "°C"
+}
 
 export function throttle(func, ms) {
 
@@ -19,12 +23,11 @@ export function throttle(func, ms) {
             savedThis = this;
             return;
         }
-        console.log(this)
         func.apply(this, arguments); // (1)
 
         isThrottled = true;
 
-        setTimeout(function() {
+        setTimeout(function () {
             isThrottled = false; // (3)
             if (savedArgs) {
                 wrapper.apply(savedThis, savedArgs);
@@ -36,7 +39,7 @@ export function throttle(func, ms) {
     return wrapper;
 }
 
-export const dayOfWeekFull = (text:string):string => {
+export const dayOfWeekFull = (text: string): string => {
     switch (text) {
         case "Mon":
             return "Понедельник";
@@ -57,7 +60,7 @@ export const dayOfWeekFull = (text:string):string => {
             return "Ничего";
     }
 }
-export const dayOfWeekShort = (text:string):string => {
+export const dayOfWeekShort = (text: string): string => {
     switch (text) {
         case "Mon":
             return "Пн";
@@ -79,7 +82,7 @@ export const dayOfWeekShort = (text:string):string => {
     }
 }
 
-export const monthFull = (text:string):string => {
+export const monthFull = (text: string): string => {
     switch (text) {
         case "Jan":
             return "Январь";
@@ -111,24 +114,36 @@ export const monthFull = (text:string):string => {
 }
 
 
-export const formattingTodayWeather = (currentWeather: WeatherData):TodayWeather => {
-    const date: string = new Date(currentWeather.weathers[0].dt_txt).toDateString();
-    return {
-        dayOfWeek: dayOfWeekFull(date.slice(0,3)),
-        fullDate: monthFull(date.slice(4,7)) + date.slice(7),
-        location: `${currentWeather.location.name}, ${currentWeather.location.state}`,
-        urlImg: `https://openweathermap.org/img/wn/${currentWeather.weathers[0].weather[0].icon}@4x.png`,
-        temperature: `${Math.floor(currentWeather.weathers[0].main.temp)}°C`,
-        weatherDescription: `${currentWeather.weathers[0].weather[0].description}`,
+export const formattingWeatherByDate = (currentWeather: WeatherData, day: number, currentMetric: Metric): TodayWeather => {
+    if (day < currentWeather.weathers.length) {
+        const date: string = new Date(currentWeather.weathers[day].dt_txt).toDateString();
+        return {
+            dayOfWeek: dayOfWeekFull(date.slice(0, 3)),
+            fullDate: monthFull(date.slice(4, 7)) + date.slice(7),
+            location: `${currentWeather.location.name}, ${currentWeather.location.state}`,
+            urlImg: `https://openweathermap.org/img/wn/${currentWeather.weathers[day].weather[0].icon}@4x.png`,
+            temperature: `${Math.floor(currentWeather.weathers[day].main.temp)}${currentMetric}`,
+            weatherDescription: `${currentWeather.weathers[day].weather[0].description}`,
+        }
+    } else {
+        return {
+            dayOfWeek: "",
+            fullDate: "",
+            location: "",
+            urlImg: "",
+            temperature: "",
+            weatherDescription: "",
+        }
     }
+
 }
-export const formattingWeeksWeatherData = (weatherInfo: Array<Weather>): Array<WeeksWeatherData>  => {
+export const formattingWeeksWeatherData = (weatherInfo: Array<Weather>): Array<WeeksWeatherData> => {
     const dataWeek = []
     for (const info of weatherInfo) {
         const date = new Date(info.dt_txt);
-        const weather: WeeksWeatherData= {
+        const weather: WeeksWeatherData = {
             id: info.weather[0].id,
-            dayOfWeek: dayOfWeekShort(date.toDateString().slice(0,3)),
+            dayOfWeek: dayOfWeekShort(date.toDateString().slice(0, 3)),
             day: date.getDay(),
             urlImg: `https://openweathermap.org/img/wn/${info.weather[0].icon}@2x.png`,
         };

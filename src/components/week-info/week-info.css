@@ -30,6 +30,17 @@
   width: 50px;
 }
 
+.active {
+  background: white;
+  transform: scale(1.1);
+}
+.active img {
+  filter: invert(100%);
+}
+.active > * {
+  color: black;
+}
+
 .day-of-week {
   padding: 0.2rem 0;
 }
