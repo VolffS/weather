@@ -1,28 +1,20 @@
 import './today-extra-weather.scss';
-import {Weather} from '../../type/weather.ts';
-import {useContext} from 'react';
-import {WeatherContextData} from '../../hooks/weather-context-data.ts';
-import {Metric} from '../../helpers/helpers.ts';
+import {WeatherData} from '../../type/weather-data.ts';
 
-export const TodayExtraWeather = ({currentWeather}: {currentWeather: Weather}) => {
-	const weatherMetric: Metric = useContext(WeatherContextData).temperatureMetric;
-
+export const TodayExtraWeather = ({todayWeather}: {todayWeather: WeatherData}) => {
 	return (
 		<div className="today-weather-container">
 			<div className="today-info">
 				<p className="today__title">Ощущается как</p>
-				<p className="today__title-value">
-					{Math.floor(currentWeather.main.feels_like)}
-					{weatherMetric}
-				</p>
+				<p className="today__title-value">{todayWeather.weather.feels_likeText}</p>
 			</div>
 			<div className="today-info">
 				<p className="today__title">Влажность</p>
-				<p className="today__title-value">{currentWeather.main.humidity} %</p>
+				<p className="today__title-value">{todayWeather.weather.humidity} %</p>
 			</div>
 			<div className="today-info">
 				<p className="today__title">Ветер</p>
-				<p className="today__title-value">{currentWeather.wind.speed} км/ч</p>
+				<p className="today__title-value">{todayWeather.weather.windSpeed} км/ч</p>
 			</div>
 		</div>
 	);

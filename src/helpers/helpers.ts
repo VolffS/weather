@@ -1,11 +1,11 @@
-import {TodayWeather} from '../type/today-weather.ts';
-import {Weather} from '../type/weather.ts';
-import {WeeksWeatherData} from '../type/weeks-weather-data.ts';
+import {WeatherRequest} from '../type/weatherRequest.ts';
 import {Location} from '../type/location.ts';
+import {WeatherData} from '../type/weather-data.ts';
 
-export enum Metric {
+export enum TemperatureMetric {
 	fahrenheit = '°F',
 	celsius = '°C',
+	kelvin = '°K',
 }
 
 export function throttle(func: Function, ms: number) {
@@ -106,42 +106,58 @@ export const monthFull = (text: string): string => {
 			return '';
 	}
 };
-
-export const formattingWeatherByDate = (
-	currentWeather: {location: Location; weather: Weather},
-	currentMetric: Metric,
-): TodayWeather => {
-	const forecast: Weather = currentWeather.weather;
-	const date: string = new Date(forecast.dt_txt).toDateString();
-	return {
-		dayOfWeek: dayOfWeekFull(date.slice(0, 3)),
-		fullDate: monthFull(date.slice(4, 7)) + date.slice(7),
-		location: `${currentWeather.location.name}, ${currentWeather.location.state}`,
-		urlImg: `https://openweathermap.org/img/wn/${forecast.weather[0].icon}@4x.png`,
-		temperature: `${Math.floor(forecast.main.temp)}${currentMetric}`,
-		weatherDescription: `${forecast.weather[0].description}`,
-	};
-};
 export const formattingWeeksWeatherData = (
-	weatherInfo: Array<Weather>,
-): Array<WeeksWeatherData> => {
+	Weathers: {location: Location; weathers: Array<WeatherRequest>},
+	metric: TemperatureMetric,
+): Array<WeatherData> => {
 	const dataWeek = [];
-	for (const info of weatherInfo) {
-		const date = new Date(info.dt_txt);
-		const weather: WeeksWeatherData = {
-			id: info.weather[0].id,
-			dayOfWeek: dayOfWeekShort(date.toDateString().slice(0, 3)),
-			temp: Math.floor(info.main.temp),
-			urlImg: `https://openweathermap.org/img/wn/${info.weather[0].icon}@2x.png`,
+	const located = Weathers.location;
+	for (const forecast of Weathers.weathers) {
+		const date: string = new Date(forecast.dt_txt).toDateString();
+		const weather = {
+			id: forecast.weather[0].id,
+			date: {
+				dayOfWeek: dayOfWeekFull(date.slice(0, 3)),
+				dayOfWeekShort: dayOfWeekShort(date.slice(0, 3)),
+				fullDate: monthFull(date.slice(4, 7)) + date.slice(7),
+			},
+			weather: {
+				tempOrigin: forecast.main.temp,
+				tempText: `${conversionTemp(forecast.main.temp, metric)}${metric}`,
+				feels_likeOrigin: forecast.main.feels_like,
+				feels_likeText: `${conversionTemp(forecast.main.feels_like, metric)}${metric}`,
+				humidity: forecast.main.humidity,
+				weatherDescription: `${forecast.weather[0].description}`,
+				windSpeed: forecast.wind.speed,
+				img: {
+					urlImg: `https://openweathermap.org/img/wn/${forecast.weather[0].icon}@4x.png`,
+					urlImgShort: `https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`,
+				},
+			},
+			location: `${located.name}, ${located.state}`,
 		};
 		dataWeek.push(weather);
 	}
 	return dataWeek;
 };
 
+export const conversionTemp = (num: number, metric: TemperatureMetric):number => {
+	if (metric === TemperatureMetric.celsius) {
+		return formattingCelsius(num);
+	} else if (metric === TemperatureMetric.fahrenheit) {
+		return formattingFahrenheit(num);
+	} else {
+		return formattingKelvin(num);
+	}
+};
+
 export const formattingCelsius = (num: number): number => {
-	return (+num - 32) / 1.8;
+	return Math.floor((+num - 32) / 1.8);
 };
 export const formattingFahrenheit = (num: number): number => {
-	return +num * 1.8 + 32;
+	return Math.floor(+num * 1.8 + 32);
+};
+
+export const formattingKelvin = (num: number): number => {
+	return Math.floor(+num + 273.15);
 };

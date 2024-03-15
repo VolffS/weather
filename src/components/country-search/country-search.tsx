@@ -38,7 +38,7 @@ export const CountrySearch = ({
 	}
 
 	useEffect(() => {
-		changeInput = () => throttle(resultRequest, 500);
+		changeInput = throttle(resultRequest, 500);
 	}, []);
 
 	const downEscapeHandler = (ev: React.KeyboardEvent<HTMLInputElement>): void => {
@@ -52,7 +52,7 @@ export const CountrySearch = ({
 		}
 	};
 
-	const cancelCountrySearch = (location: Location) => {
+	const completeCountrySearch = (location: Location) => {
 		endCountrySearch();
 		fillDataWeather(location);
 	};
@@ -76,7 +76,7 @@ export const CountrySearch = ({
 				{cities.length != 0 && (
 					<SearchResultList
 						cities={cities}
-						onCityClick={cancelCountrySearch}
+						onCityClick={completeCountrySearch}
 					/>
 				)}
 			</div>

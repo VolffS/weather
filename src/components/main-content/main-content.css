@@ -51,6 +51,7 @@ main {
 .select-metric button:last-child {
   border-top-right-radius: 0.7rem;
   border-bottom-right-radius: 0.7rem;
+  border-left: white solid 0.1rem;
 }
 
 .main-content {

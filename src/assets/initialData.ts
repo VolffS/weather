@@ -1,31 +1,24 @@
-import {Location} from '../type/location.ts';
-import {Weather} from '../type/weather.ts';
+import {WeatherData} from '../type/weather-data.ts';
 
-export const initiationLocation: Location = {
-	name: '',
-	lat: 0,
-	lon: 0,
-	state: '',
-	country: '',
-};
-
-export const initiationWeather: Array<Weather> = [
-	{
-		main: {
-			temp: 0,
-			humidity: 0,
-			feels_like: 0,
-		},
-		weather: [
-			{
-				id: 0,
-				description: '',
-				icon: '',
-			},
-		],
-		wind: {
-			speed: 0,
-		},
-		dt_txt: '0000-00-00',
+export const initiationWeatherData: WeatherData = {
+	id: 0,
+	date: {
+		dayOfWeek: 'Погоды нет',
+		dayOfWeekShort: '',
+		fullDate: '',
 	},
-];
+	weather: {
+		tempOrigin: 0,
+		tempText: '',
+		feels_likeOrigin: 0,
+		feels_likeText: '',
+		humidity: 0,
+		weatherDescription: '',
+		windSpeed: 0,
+		img: {
+			urlImg: '',
+			urlImgShort: '',
+		},
+	},
+	location: '',
+};

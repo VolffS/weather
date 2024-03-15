@@ -7,17 +7,19 @@ import {Location} from '../../type/location.ts';
 import {requestLocationRevers} from '../../helpers/request-api.ts';
 import {Coordinate} from '../../type/coordinate.ts';
 import {Geolocation} from '../../type/geolocation.ts';
-import {Metric} from '../../helpers/helpers.ts';
+import {TemperatureMetric} from '../../helpers/helpers.ts';
 import {useWeather} from '../../hooks/useWeather.ts';
 import {WeatherContextData} from '../../hooks/weather-context-data.ts';
 import {Loader} from '../loader/loader.tsx';
-import {UseWeather} from '../../type/use-weather.ts';
+import {WeatherState} from '../../type/weatherState.ts';
 
 export const MainContent = () => {
-	const WeatherForecast: UseWeather = useWeather();
+	const WeatherForecast: WeatherState = useWeather();
 	const [isCountrySearch, setIsCountrySearch] = useState<boolean>(false);
 	const [activeDay, setActiveDay] = useState<number>(0);
-	const [temperatureMetric, setTemperatureMetric] = useState<Metric>(Metric.celsius);
+	const [temperatureMetric, setTemperatureMetric] = useState<TemperatureMetric>(
+		TemperatureMetric.celsius,
+	);
 	const loaderRef = useRef();
 
 	if (loaderRef.current !== undefined && !WeatherForecast.isLoad) {
@@ -51,7 +53,7 @@ export const MainContent = () => {
 	const selectWeatherDay = (day: number): void => {
 		activeDay === day ? setActiveDay(0) : setActiveDay(day);
 	};
-	const changeWeatherMetric = (metric: Metric): void => {
+	const changeWeatherMetric = (metric: TemperatureMetric): void => {
 		if (temperatureMetric !== metric) {
 			WeatherForecast.changeWeatherMetric(metric);
 			setTemperatureMetric(metric);
@@ -73,7 +75,7 @@ export const MainContent = () => {
 					<button
 						disabled={WeatherForecast.isLoad}
 						onClick={() => {
-							changeWeatherMetric(Metric.celsius);
+							changeWeatherMetric(TemperatureMetric.celsius);
 						}}
 					>
 						°C
@@ -81,7 +83,15 @@ export const MainContent = () => {
 					<button
 						disabled={WeatherForecast.isLoad}
 						onClick={() => {
-							changeWeatherMetric(Metric.fahrenheit);
+							changeWeatherMetric(TemperatureMetric.kelvin);
+						}}
+					>
+						°K
+					</button>
+					<button
+						disabled={WeatherForecast.isLoad}
+						onClick={() => {
+							changeWeatherMetric(TemperatureMetric.fahrenheit);
 						}}
 					>
 						°F
@@ -89,12 +99,12 @@ export const MainContent = () => {
 				</div>
 				<div className="main-content">
 					<WeatherContextData.Provider value={contextValue}>
-						<CurrentWeather weather={WeatherForecast.getForecastForDay(activeDay)} />
+						<CurrentWeather currentWeather={WeatherForecast.weatherData[activeDay]} />
 
 						<SideInformation
 							onCountrySearch={changeIsCountrySearch}
 							selectWeatherDay={selectWeatherDay}
-							weather={WeatherForecast.stateWeather.weathers}
+							weather={WeatherForecast.weatherData}
 						/>
 					</WeatherContextData.Provider>
 				</div>

@@ -1,40 +1,32 @@
 import './current-weather.scss';
 import locationSvg from '../../assets/location.svg';
-import {formattingWeatherByDate, Metric} from '../../helpers/helpers.ts';
-import {TodayWeather} from '../../type/today-weather.ts';
-import {Location} from '../../type/location.ts';
-import {Weather} from '../../type/weather.ts';
-import {useContext} from 'react';
-import {WeatherContextData} from '../../hooks/weather-context-data.ts';
+import {WeatherData} from '../../type/weather-data.ts';
 
-export const CurrentWeather = ({weather}: {weather: {location: Location; weather: Weather}}) => {
-	const weatherMetric: Metric = useContext(WeatherContextData).temperatureMetric;
-	const weatherData: TodayWeather = formattingWeatherByDate(weather, weatherMetric);
-
+export const CurrentWeather = ({currentWeather}: {currentWeather: WeatherData}) => {
 	return (
 		<div className="container">
 			<div className="current-weather">
 				<div className="current-weather__up">
-					<h2>{weatherData.dayOfWeek}</h2>
-					<p> {weatherData.fullDate}</p>
+					<h2>{currentWeather.date.dayOfWeek}</h2>
+					<p> {currentWeather.date.fullDate}</p>
 					<div className="current-location">
 						<img
 							src={locationSvg}
 							alt=""
 						/>
-						<p> {weatherData.location}</p>
+						<p> {currentWeather.location}</p>
 					</div>
 				</div>
 				<div className="current-weather__down">
 					<div className="img-container">
 						<img
 							className="current-weather__img"
-							src={weatherData.urlImg}
+							src={currentWeather.weather.img.urlImg}
 							alt=""
 						/>
 					</div>
-					<p className="current-weather__down__temp">{weatherData.temperature}</p>
-					<p className="current-weather__down__info">{weatherData.weatherDescription}</p>
+					<p className="current-weather__down__temp">{currentWeather.weather.tempText}</p>
+					<p className="current-weather__down__info">{currentWeather.weather.weatherDescription}</p>
 				</div>
 			</div>
 		</div>

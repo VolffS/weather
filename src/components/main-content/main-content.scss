@@ -50,6 +50,7 @@ main{
     &:last-child {
       border-top-right-radius: 0.7rem;
       border-bottom-right-radius: 0.7rem;
+      border-left: white solid .1rem;
     }
 
   }

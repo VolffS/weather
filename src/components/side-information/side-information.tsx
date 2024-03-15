@@ -2,26 +2,25 @@ import './side-information.scss';
 import {TodayExtraWeather} from '../today-extra-weather/today-extra-weather.tsx';
 import {WeekInfo} from '../week-info/week-info.tsx';
 import locationSvg from '../../assets/location.svg';
-import {Weather} from '../../type/weather.ts';
 import {useContext} from 'react';
 import {WeatherContextData} from '../../hooks/weather-context-data.ts';
+import {WeatherData} from '../../type/weather-data.ts';
 
 export const SideInformation = ({
 	weather,
 	onCountrySearch,
 	selectWeatherDay,
 }: {
-	weather: Array<Weather>;
+	weather: Array<WeatherData>;
 	onCountrySearch: () => void;
 	selectWeatherDay: (day: number) => void;
 }) => {
 	const activeDay: number = useContext(WeatherContextData).activeDay;
-
 	return (
 		<div className="side-information">
-			<TodayExtraWeather currentWeather={weather[activeDay]} />
+			<TodayExtraWeather todayWeather={weather[activeDay]} />
 			<WeekInfo
-				weather={weather}
+				weathersForecast={weather}
 				onDayClick={selectWeatherDay}
 			/>
 			<button
