@@ -24,6 +24,17 @@ main {
   padding: 0.3rem 0.6rem;
   border: none;
 }
+.select-metric button:disabled {
+  background: #333333;
+}
+.select-metric button:disabled:hover {
+  color: inherit;
+  background: #333333;
+}
+.select-metric button:disabled:active {
+  color: inherit;
+  background: #333333;
+}
 .select-metric button:hover {
   background: white;
   color: black;

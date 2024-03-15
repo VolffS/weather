@@ -22,6 +22,17 @@ main{
     padding: .3rem .6rem;
     border: none;
 
+    &:disabled {
+      background: #333333;
+    }
+    &:disabled:hover {
+      color: inherit;
+      background: #333333;
+    }
+    &:disabled:active {
+      color: inherit;
+      background: #333333;
+    }
     &:hover {
       background: white;
       color: black;
