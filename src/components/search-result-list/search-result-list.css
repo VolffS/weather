@@ -1,0 +1,44 @@
+.country-search__result {
+  position: relative;
+  z-index: 0;
+  padding-bottom: 0.4rem;
+  background: linear-gradient(215deg, #576a7d, 60%, #535de4);
+  width: 100%;
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  transition: 2s;
+}
+.country-search__result::before {
+  border-bottom: solid #949494 0.1rem;
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  height: 0.7rem;
+  width: 100%;
+  background: linear-gradient(215deg, #576a7d, 60%, #535de4);
+}
+
+.result-text {
+  border-bottom: solid #000000 0.1rem;
+  color: black;
+  background: inherit;
+  list-style: none;
+}
+.result-text:last-child {
+  border-bottom: none;
+}
+
+.result-btn {
+  padding: 0.3rem;
+  background: inherit;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+.result-btn:hover {
+  filter: invert(20%);
+}
+
+/*# sourceMappingURL=search-result-list.css.map */

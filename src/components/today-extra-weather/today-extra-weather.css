@@ -1,0 +1,20 @@
+.today-weather-container {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.today-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.today__title {
+  font-weight: bolder;
+}
+
+.today__title-value {
+  text-align: right;
+}
+
+/*# sourceMappingURL=today-extra-weather.css.map */
