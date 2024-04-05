@@ -1,0 +1,36 @@
+header {
+  font-family: Roboto, sans-serif;
+  color: white;
+  padding: 0.5rem 0 0.7rem;
+  background-color: #586b7e;
+  min-height: 3.2rem;
+  width: 100%;
+}
+
+.navigation {
+  display: flex;
+  grid-auto-rows: min-content;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+}
+
+.navigation__link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 1rem 0 1rem;
+  color: inherit;
+}
+.navigation__link .navigation__link__img {
+  margin-right: 0.5rem;
+}
+.navigation__link:hover {
+  filter: brightness(0) saturate(100%) invert(99%) sepia(7%) saturate(663%) hue-rotate(244deg) brightness(83%) contrast(86%);
+}
+
+/*# sourceMappingURL=header.css.map */

@@ -1,0 +1,53 @@
+.week-container {
+  background: #252933;
+  border-radius: 1rem;
+}
+
+.next-days {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+}
+
+.next-days__weather {
+  text-align: center;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  transition: 400ms;
+
+  &:hover {
+    background: white;
+    transform: scale(1.2);
+    img {
+      filter: invert(100%);
+    }
+    &> *{
+      color: black;
+    }
+  }
+
+  img {
+    width: 50px;
+  }
+}
+
+.active {
+  background: white;
+  transform: scale(1.1);
+  img {
+    filter: invert(100%);
+  }
+  &> *{
+    color: black;
+  }
+}
+
+.day-of-week {
+  padding: .2rem 0;
+}
+
+.day-temp {
+  font-weight: bold;
+  padding: .2rem 0;
+}
